@@ -1,66 +1,35 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace _04_Pig_Latin
 {
-    public class Translator
+    internal class Translator
     {
-        public Translator()
+        internal string Translate(string word)
         {
-        }
-        public string Translate(string v)
-        {
-            char[] vowels = new char[4] { 'a', 'e', 'i', 'o' };
-            string[] words;
-            words = v.Split(' ');
-            string result = "";
-            foreach (string word in words)
+            List<Char> vowels = new List<Char> { 'a', 'e', 'i', 'o' };
+            string firstLetter = word.Substring(0, 1);
+            string newWord = "";
+            string[] diffWords = word.Split(' ');
+            string finalWord;
+            foreach (string diffWord in diffWords)
             {
-                char firstletter = word[0];
-                char secondletter = word[1];
-                char thirdletter = word[2];
-
-                if (vowels.Contains(firstletter))
+                bool isFirstVowel = true;
+                for (int p = 0; p < diffWord.Length; p++)
                 {
-                    result = result + word + "ay ";
-                }
-                else
-                {
-                    if (vowels.Contains(secondletter))
+                    if (vowels.Contains(diffWord[p]) && isFirstVowel == true)
                     {
-                        string bob = "";
-                        bob = word.Substring(1);
-                        result = result + bob + firstletter + "ay ";
-                    }
-                    else
-                    {
-                        if (vowels.Contains(thirdletter))
+                        finalWord = diffWord.Substring(p) + diffWord.Substring(0, p) + "ay";
+                        if (diffWord.Substring(0,1) == diffWord.Substring(0, 1).ToUpper())
                         {
-                            string eli = "";
-                            eli = word.Substring(2);
-                            result = result + eli + firstletter + secondletter + "ay ";
+                            finalWord = finalWord.Substring(0, 1).ToUpper() + finalWord.Substring(1).ToLower();
                         }
-                        else
-                        {
-                            
-                            if (firstletter == char.ToUpper(firstletter))
-                            {
-                                string mom = "";
-                                mom = word.Substring(3);
-                                result = result + mom + char.ToUpper(firstletter) + char.ToLower(secondletter) + thirdletter + "ay ";
-                            }
-                            else
-                            {
-                                string mom = "";
-                                mom = word.Substring(3);
-                                result = result + mom + firstletter + secondletter + thirdletter + "ay ";
-                            }
-                        }
+                        newWord = newWord + " " + finalWord;
+                        isFirstVowel = false;
                     }
                 }
             }
-            return result.Trim();
+            return newWord.Trim();
         }
     }
-
 }

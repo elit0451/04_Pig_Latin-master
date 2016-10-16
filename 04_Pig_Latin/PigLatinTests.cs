@@ -76,6 +76,13 @@ namespace _04_Pig_Latin
             Assert.AreEqual("Ethay ickquay ownbray oxfay", translator.Translate("The quick brown fox"));
         }
 
+        [TestMethod]
+        public void TranslateFirstWordWithCapitalLetterButKeepTheRestWithLower()
+        {
+            Translator translator = new Translator();
+            Assert.AreEqual("Ethay ickquay ownbray oxfay Ettybay", translator.Translate("The quick brown fox Betty"));
+        }
+
         //Test-driving bonus:
         // write a test asserting that capitalized words are still capitalized (but with a different initial capital letter, of course)
         // retain the punctuation from the original phrase
